@@ -1,0 +1,8 @@
+DEMO - entreprise et données entièrement fictives
+ATELIER MOREAU USINAGE - Procédures commerciales officielles (2023)
+Auteur : Michel Moreau, responsable commercial
+1. Remise maximale autorisée : 5 %.
+2. Délai de paiement : 30 jours pour tous les clients.
+3. Délai standard de fabrication : 3 semaines, toute l'année.
+4. Fournisseur prioritaire pour la matière : Acieral, car il est le moins cher.
+5. Contrôle final : chaque pièce est contrôlée par l'opérateur qui l'a usinée.

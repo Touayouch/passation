@@ -1,0 +1,41 @@
+commande,date,client_final,fournisseur,prix_kg_eur
+A-001,2024-02-01,Aeronyx,Fonderis,9.4
+A-002,2024-02-18,Breizhydra,Acieral,7.8
+A-003,2024-03-06,Valmecano,Acieral,7.8
+A-004,2024-03-21,Serrano Pompes,Acieral,7.8
+A-005,2024-04-10,Lorivex,Acieral,7.8
+A-006,2024-04-27,Nordavel,Acieral,7.8
+A-007,2024-05-11,Aeronyx,Fonderis,9.4
+A-008,2024-05-26,Breizhydra,Acieral,7.8
+A-009,2024-06-12,Valmecano,Acieral,7.8
+A-010,2024-06-26,Serrano Pompes,Acieral,7.8
+A-011,2024-07-13,Lorivex,Acieral,7.8
+A-012,2024-07-29,Nordavel,Acieral,7.8
+A-013,2024-08-18,Aeronyx,Fonderis,9.4
+A-014,2024-09-07,Breizhydra,Acieral,7.8
+A-015,2024-09-24,Valmecano,Acieral,7.8
+A-016,2024-10-10,Serrano Pompes,Acieral,7.8
+A-017,2024-10-27,Lorivex,Acieral,7.8
+A-018,2024-11-15,Nordavel,Acieral,7.8
+A-019,2024-12-04,Aeronyx,Fonderis,9.4
+A-020,2024-12-24,Breizhydra,Acieral,7.8
+A-021,2025-01-11,Valmecano,Acieral,7.8
+A-022,2025-01-30,Serrano Pompes,Acieral,7.8
+A-023,2025-02-18,Lorivex,Acieral,7.8
+A-024,2025-03-07,Nordavel,Acieral,7.8
+A-025,2025-03-22,Aeronyx,Fonderis,9.4
+A-026,2025-04-06,Breizhydra,Acieral,7.8
+A-027,2025-04-22,Valmecano,Acieral,7.8
+A-028,2025-05-07,Serrano Pompes,Acieral,7.8
+A-029,2025-05-21,Lorivex,Acieral,7.8
+A-030,2025-06-08,Nordavel,Acieral,7.8
+A-031,2025-06-27,Aeronyx,Fonderis,9.4
+A-032,2025-07-15,Breizhydra,Acieral,7.8
+A-033,2025-07-29,Valmecano,Acieral,7.8
+A-034,2025-08-17,Serrano Pompes,Acieral,7.8
+A-035,2025-09-02,Lorivex,Acieral,7.8
+A-036,2025-09-16,Nordavel,Acieral,7.8
+A-037,2025-09-30,Aeronyx,Fonderis,9.4
+A-038,2025-10-18,Breizhydra,Acieral,7.8
+A-039,2025-11-04,Valmecano,Acieral,7.8
+A-040,2025-11-22,Serrano Pompes,Acieral,7.8

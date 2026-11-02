@@ -1,0 +1,13 @@
+DEMO - entreprise et données entièrement fictives
+Extraits de la boite mail de Michel Moreau
+
+[12/03/2024] Michel à Léa : Pour le devis Nordavel, applique comme d'habitude. Tu sais.
+[03/04/2024] Valmecano à Michel : Merci pour la livraison, tout est conforme.
+[18/06/2024] Michel à Paul : Pour Aeronyx, pas d'Acieral. Passe la commande chez Fonderis.
+[02/09/2024] Serrano Pompes à Michel : Pouvez-vous confirmer le prix de l'axe acier ?
+[14/10/2024] Michel à Sofia : Les inox 316, tu les donnes à Karim avant de partir. Toujours.
+[25/11/2024] Lorivex à Michel : Pourquoi quatre semaines au lieu de trois sur ce devis ?
+[26/11/2024] Michel à Lorivex : C'est la période. Merci de votre comprehension.
+[09/01/2025] Breizhydra à Michel : Comme convenu, règlement à 60 jours.
+[10/01/2025] Compta à Michel : Breizhydra est encore a 60 jours. C'est normal ?
+[10/01/2025] Michel à Compta : Oui, ne touche a rien.
