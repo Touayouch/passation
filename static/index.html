@@ -5,135 +5,219 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Passation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Caveat:wght@600&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--plan:#0D3560;--plan-2:#154A80;--trait:#8FC7EE;--doux:#CFE4F4;--blanc:#fff;--encre:#0B2239;--gris:#55697C;--ligne:#C4D2DE;--rouge:#FF6B57;--crayon:#C2301C;--surligne:#FFD84D;--vert:#0F7B55;--vif:#6FE3B2}
+:root{--fond:#050608;--cote:#0B0D11;--bloc:#101217;--bulle:#14171D;--ligne:#2A2E36;--action:#DBEE63;--action2:#E8F68C;--action-t:#18210A;--moi:#DBEE63;--moi-t:#18210A;--vrai:#DBEE63;--texte:#F3F2EC;--doux:#A5A8A6;--terne:#73777A;--rouge:#FF7B6B;--ciel:radial-gradient(1px 1px at 37px 61px,#ffffff70,transparent),radial-gradient(1px 1px at 143px 217px,#ffffff58,transparent),radial-gradient(1.4px 1.4px at 261px 89px,#ffffff66,transparent),radial-gradient(1px 1px at 402px 311px,#ffffff50,transparent),radial-gradient(1px 1px at 88px 402px,#ffffff68,transparent),radial-gradient(1.4px 1.4px at 327px 455px,#ffffff4c,transparent),radial-gradient(1px 1px at 486px 142px,#ffffff5c,transparent),radial-gradient(1px 1px at 201px 509px,#ffffff50,transparent)}
 *{box-sizing:border-box}
-html,body{margin:0;height:100%}
-body{font:16px/1.5 Archivo,system-ui,sans-serif;color:#fff;background-color:var(--plan);background-image:linear-gradient(rgba(143,199,238,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(143,199,238,.08) 1px,transparent 1px);background-size:24px 24px}
-button,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid #fff;outline-offset:2px}
-.page{display:grid;grid-template-columns:minmax(400px,40%) 1fr;min-height:100%}
-.plan{padding:16px 0 16px 16px;position:sticky;top:0;height:100vh;overflow:auto}
-.cadre{border:1px solid var(--trait);height:100%;min-height:640px;padding:14px 18px 14px;display:flex;flex-direction:column;gap:11px;position:relative}
-.cadre:before,.cadre:after{content:"";position:absolute;left:50%;width:1px;height:10px;background:var(--trait)}
-.cadre:before{top:-1px}.cadre:after{bottom:-1px}
-.tete{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
-.marque{font-weight:800;font-size:28px;letter-spacing:-.035em;margin:0}
-.soustitre{margin:0;color:var(--doux);font-size:14px;text-align:right}
-.feuille{background:var(--blanc);color:var(--encre);padding:14px 20px 8px;position:relative;overflow:hidden;flex:1;box-shadow:7px 7px 0 var(--plan-2)}
-.feuille h2{margin:0;font-size:18px;font-weight:600}
-.feuille .meta{margin:0 0 7px;color:var(--gris);font-size:13.5px}
-.regles{margin:0;padding:0;list-style:none;counter-reset:r}
-.regle{padding:8px 0 8px 28px;border-top:1px solid var(--ligne);position:relative;counter-increment:r;font-size:15.5px;line-height:1.36}
-.regle:before{content:counter(r);position:absolute;left:0;top:10px;width:18px;height:18px;border:1px solid var(--gris);border-radius:50%;font-size:11px;line-height:16px;text-align:center;color:var(--gris)}
-.regle-texte{background-image:linear-gradient(var(--crayon),var(--crayon));background-size:0 2px;background-position:0 58%;background-repeat:no-repeat;transition:background-size .7s ease}
-.regle.barree .regle-texte{background-size:100% 2px}
-.note{display:block;font:600 21px/1.08 Caveat,cursive;color:var(--crayon);max-height:0;overflow:hidden;transition:max-height .5s ease .4s}
-.regle.barree .note{max-height:70px;margin-top:2px}
-.regle.nouvelle .regle-texte{background-size:0 2px;color:var(--vert);font-weight:500}
-.regle.nouvelle .note{max-height:0;margin:0}
-.regle.nouvelle:before{border-color:var(--vert);color:#fff;background:var(--vert)}
-.feuille.scan:after{content:"";position:absolute;left:0;right:0;top:0;height:64px;background:linear-gradient(transparent,rgba(143,199,238,.5));border-bottom:2px solid var(--plan-2);animation:scan 2.4s ease-in-out infinite alternate}
-@keyframes scan{to{transform:translateY(calc(var(--h,420px) - 64px))}}
-.tampon{position:absolute;right:16px;bottom:24px;border:4px double var(--vert);color:var(--vert);font-weight:800;font-size:30px;letter-spacing:.06em;text-transform:uppercase;padding:2px 14px;transform:rotate(-8deg);background:rgba(255,255,255,.85);animation:tampon .28s cubic-bezier(.2,1.5,.5,1) both}
-@keyframes tampon{from{transform:rotate(-8deg) scale(2.2);opacity:0}}
-.cartouche{display:grid;grid-template-columns:1.4fr .55fr 1fr;border:1px solid var(--trait);font-size:12.5px;color:var(--doux)}
-.cartouche div{padding:4px 9px;border-left:1px solid var(--trait)}
-.cartouche div:first-child{border-left:0}
-.cartouche b{display:block;color:#fff;font-size:15px;font-weight:600}
-.travail{padding:18px clamp(20px,4vw,60px) 64px;max-width:940px;min-width:0}
-.etapes{display:grid;grid-template-columns:repeat(4,1fr);margin:0 0 24px;padding:0;list-style:none}
-.etapes li{font-size:14px;color:var(--doux);padding-top:20px;position:relative}
-.etapes li:before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:rgba(143,199,238,.35)}
-.etapes li:after{content:"";position:absolute;left:0;top:0;width:14px;height:14px;border-radius:50%;background:var(--plan);border:2px solid var(--trait)}
-.etapes li.finie:before,.etapes li.active:before{background:var(--trait)}
-.etapes li.finie:after{background:var(--trait)}
-.etapes li.active{color:#fff;font-weight:600}
-.etapes li.active:after{background:var(--surligne);border-color:var(--surligne)}
-h1{font-size:clamp(32px,4vw,56px);line-height:1;letter-spacing:-.035em;margin:0 0 14px;font-weight:800}
-.intro{max-width:56ch;margin:0 0 20px;color:var(--doux);font-size:17px}
-.btn{background:var(--surligne);color:var(--encre);border:0;padding:13px 22px;font-weight:600;cursor:pointer;box-shadow:4px 4px 0 var(--plan-2)}
-.btn:hover{background:#FFE680}
-.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--plan-2)}
+html{scroll-behavior:smooth}
+html,body{margin:0;min-height:100%}
+body{font:17px/1.5 Manrope,system-ui,sans-serif;color:var(--texte);background:var(--ciel) 0 0/560px 560px fixed,var(--fond)}
+button,textarea,input{font:inherit;color:inherit}
+h1,h2,h3{font-family:Manrope,sans-serif}
+:focus-visible{outline:2px solid var(--action);outline-offset:3px}
+[hidden]{display:none!important}
+.btn{display:inline-block;background:var(--action);color:var(--action-t);border:0;border-radius:12px;padding:14px 24px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover{background:var(--action2)}
 .btn:disabled{opacity:.5;cursor:default}
-.btn.secondaire{background:none;color:#fff;box-shadow:inset 0 0 0 1px var(--trait)}
-.fil{margin:18px 0;padding:0;list-style:none;font-size:15px;color:var(--doux)}
-.fil li{padding:2px 0 2px 20px;position:relative}
-.fil li:before{content:"";position:absolute;left:3px;top:.65em;width:7px;height:7px;background:rgba(143,199,238,.5);border-radius:50%}
-.fil li:last-child:before{background:var(--surligne);animation:pouls 1s infinite}
+.btn.secondaire{background:none;color:var(--texte);box-shadow:inset 0 0 0 1px var(--ligne)}
+.btn.secondaire:hover{box-shadow:inset 0 0 0 1px var(--action);color:var(--action)}
+.lien{background:none;border:0;padding:0;color:var(--doux);text-decoration:underline;cursor:pointer;font-size:15px}
+.lien:hover{color:var(--texte)}
+.choix{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+
+/* Accueil */
+.barre{position:sticky;top:0;z-index:6;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:20px clamp(20px,4vw,56px);background:var(--fond)}
+.barre>:last-child{justify-self:end}
+.logo{display:flex;align-items:center;gap:12px;font-weight:500;font-size:16px;letter-spacing:.34em;text-transform:uppercase;margin-right:-.34em}
+.logo svg{width:26px;height:26px;flex:none}
+.cadre-btn{background:none;border:1px solid var(--ligne);border-radius:12px;padding:11px 18px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;color:var(--texte);justify-self:start}
+.cadre-btn:hover{border-color:var(--action);color:var(--action)}
+.filet{height:1px;border:0;margin:0;background:linear-gradient(90deg,var(--action),var(--ligne) 45%,transparent)}
+.hero{max-width:1280px;margin:0 auto;padding:clamp(20px,6vh,56px) clamp(20px,4vw,56px) 0}
+.h-tete{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(20px,5vw,72px);align-items:end;padding-bottom:26px}
+.l-titre{font-weight:700;font-size:clamp(42px,5.2vw,74px);line-height:1.03;letter-spacing:-.035em;margin:0}
+.l-sous{margin:0;color:var(--doux);font-size:clamp(17px,1.4vw,19px);line-height:1.45}
+.entrees{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+.entree{display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-height:clamp(280px,44vh,400px);padding:clamp(26px,3vw,40px);border-radius:14px;border:1px solid var(--ligne);background:var(--bloc);cursor:pointer;transition:transform .18s ease,border-color .18s}
+.entree:hover{transform:translateY(-3px);border-color:var(--action)}
+.entree.vive{background:var(--action);border-color:var(--action);color:var(--action-t)}
+.entree i{width:70px;height:70px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font:400 34px/1 Manrope,sans-serif}
+.entree strong{margin-top:auto;font-size:clamp(28px,2.9vw,40px);line-height:1.1;letter-spacing:-.025em;font-weight:700}
+.entree span{margin-top:8px;font-size:17px;opacity:.78}
+.bulle{max-width:82%;padding:13px 17px;border-radius:14px;background:var(--bulle);border:1px solid var(--ligne);align-self:flex-start;line-height:1.38;overflow-wrap:anywhere}
+.bulle p{margin:0}.bulle.moi{align-self:flex-end;background:var(--moi);border-color:var(--moi);color:var(--moi-t)}
+#comment{scroll-margin-top:90px}
+.l-etape{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,6vw,90px);align-items:center;max-width:1180px;margin:0 auto;padding:clamp(48px,9vh,96px) clamp(20px,4vw,56px)}
+.l-etape h2{font-weight:700;font-size:clamp(36px,4.4vw,62px);line-height:1;letter-spacing:-.04em;margin:0}
+.l-num{color:var(--action);font:500 14px "JetBrains Mono",monospace;margin:0 0 12px}
+.l-etape .texte{color:var(--doux);font-size:19px;max-width:29em;margin:16px 0 0}
+.vitre{background:var(--bloc);border:1px solid var(--ligne);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:12px;min-height:220px;justify-content:center}
+.vitre ul{margin:0;padding:0;list-style:none}.vitre li{padding:11px 0;border-top:1px solid var(--ligne)}.vitre li:first-child{border:0}
+.vitre .barre{text-decoration:line-through;text-decoration-color:var(--rouge);text-decoration-thickness:2px;color:var(--doux)}
+.vitre .vrai{color:var(--vrai);font-weight:600;margin:-8px 0 8px}
+.l-fin{text-align:center;padding:clamp(60px,12vh,120px) 20px}
+.l-fin h2{font-weight:700;font-size:clamp(36px,5vw,70px);line-height:1;letter-spacing:-.04em;margin:0 0 26px}
+.l-pied{color:var(--doux);font-size:14px;margin-top:26px}
+
+/* Application */
+.page{display:grid;grid-template-columns:minmax(360px,430px) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);height:100vh;overflow:hidden}
+.page>.barre,.page>.filet{grid-column:1/-1}
+.credits{font:500 15px "JetBrains Mono",monospace;color:var(--action);white-space:nowrap}
+.plan{position:relative;padding:18px 12px 14px clamp(20px,4vw,56px);min-height:0}
+.cadre{display:flex;flex-direction:column;gap:14px;height:100%}
+.cartouche{flex:none}
+.memoire{flex:1;min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--ligne) transparent}
+.carte{position:relative;flex:none;background:var(--bloc);border:1px solid var(--ligne);border-radius:14px;padding:16px 18px}
+.carte h2,.feuille h2{margin:0;font-size:20px;line-height:1.2;padding-right:60px}
+.meta{margin:2px 0 0;color:var(--doux);font-size:14px}
+.ouvrir{display:block;width:100%;margin-top:12px;padding:11px 14px;background:none;border:1px solid var(--action);border-radius:10px;color:var(--action);font-weight:600;font-size:15px;cursor:pointer;text-align:left}
+.ouvrir:hover{background:var(--action);color:var(--action-t)}
+.feuille{position:absolute;z-index:3;top:18px;bottom:14px;left:clamp(20px,4vw,56px);right:12px;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--ligne) transparent;background:var(--bloc);border:1px solid var(--action);border-radius:14px;padding:16px 18px 8px;box-shadow:0 18px 50px #000;animation:monte .22s ease both}
+.f-tete{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
+.f-tete h2{padding:0}
+.fermer{flex:none;width:36px;height:36px;border:1px solid var(--ligne);border-radius:10px;background:none;font-size:22px;line-height:1;cursor:pointer}
+.fermer:hover{border-color:var(--action);color:var(--action)}
+.regles{margin:0;padding:0;list-style:none}
+.regle{padding:10px 8px;margin:0 -8px;border-top:1px solid var(--ligne);font-size:15.5px;line-height:1.33;border-radius:6px}
+.regle-texte{background-image:linear-gradient(var(--rouge),var(--rouge));background-size:0 2px;background-position:0 58%;background-repeat:no-repeat;transition:background-size .7s ease}
+.regle.barree .regle-texte{background-size:100% 2px;color:var(--doux)}
+.note{display:block;font-weight:600;color:var(--vrai);max-height:0;overflow:hidden;transition:max-height .5s ease .4s}
+.regle.barree .note{max-height:70px;margin-top:2px}
+.regle.nouvelle .regle-texte{background-size:0 2px;color:var(--vrai);font-weight:600}
+.regle.nouvelle .note{max-height:0;margin:0}
+.feuille.scan .regle{animation:lire 3.5s ease-in-out infinite}
+.feuille.scan .regle:nth-child(2){animation-delay:.7s}.feuille.scan .regle:nth-child(3){animation-delay:1.4s}.feuille.scan .regle:nth-child(4){animation-delay:2.1s}.feuille.scan .regle:nth-child(5){animation-delay:2.8s}
+@keyframes lire{0%,28%,100%{background:transparent}9%,18%{background:var(--bulle)}}
+.tampon{position:absolute;right:14px;top:14px;background:var(--action);color:var(--action-t);font-weight:800;font-size:15px;padding:5px 13px;border-radius:9px;animation:tampon .28s cubic-bezier(.2,1.5,.5,1) both}
+@keyframes tampon{from{transform:scale(1.8);opacity:0}}
+.cartouche{display:flex;gap:26px;font-size:13px;color:var(--doux);padding:0 4px}
+.cartouche b{display:block;color:var(--texte);font-size:15px;font-weight:600}
+.memoire h2{font:600 15px Manrope,sans-serif;margin:0 0 8px;color:var(--doux)}
+.fiches{display:flex;flex-wrap:wrap;gap:7px}
+.fiche{background:none;border:1px solid var(--ligne);border-radius:9px;padding:5px 12px;animation:monte .4s ease both}
+.fiche strong{font-weight:600;font-size:13.5px;text-transform:capitalize}.fiche span{display:none}
+.vide{color:var(--doux);margin:0;font-size:14px}
+.travail{display:flex;flex-direction:column;padding:14px clamp(24px,5vw,72px) 0;min-width:0;min-height:0}
+#scene{flex:1;min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--ligne) transparent;display:flex;flex-direction:column;max-width:860px;width:100%;align-self:center}
+#scene:has(>.composer){overflow:hidden}
+.etapes{flex:none;display:flex;gap:30px;margin:0 0 14px;padding:0;list-style:none;align-self:center;max-width:860px;width:100%}
+.etapes li{padding-bottom:6px;border-bottom:2px solid transparent;font-size:16px;font-weight:500;color:var(--terne)}
+.etapes li.finie{color:var(--doux)}
+.etapes li.active{color:var(--texte);border-color:var(--action)}
+h1{font-weight:700;font-size:clamp(27px,2.7vw,38px);line-height:1.08;letter-spacing:-.03em;margin:0 0 10px;flex:none}
+.intro{flex:none;max-width:62ch;margin:0 0 16px;color:var(--doux);font-size:17px}
+#scene:has(>.composer) h1{font-size:22px;margin-bottom:4px}
+#scene:has(>.composer) .intro{font-size:15px;margin-bottom:10px}
+.fil{margin:14px 0;padding:0;list-style:none;color:var(--doux)}
+.fil li{padding:3px 0 3px 20px;position:relative}
+.fil li:before{content:"";position:absolute;left:3px;top:.72em;width:7px;height:7px;background:var(--ligne);border-radius:50%}
+.fil li:last-child{color:var(--texte)}
+.fil li:last-child:before{background:var(--action);animation:pouls 1s infinite}
 @keyframes pouls{50%{opacity:.25}}
-.ecart-carte{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:11px 0;border-top:1px solid rgba(143,199,238,.3)}
-.ecart-carte small{display:block;color:var(--doux);font-size:13px;margin-bottom:1px}
-.ecart-carte .ecrit{color:var(--doux);text-decoration:line-through;text-decoration-color:var(--rouge);text-decoration-thickness:2px;display:block;font-size:15px}
-.ecart-carte .reel{font-weight:600;font-size:16px;line-height:1.25;display:block}
-.pips{display:flex;gap:6px;align-items:center;margin:0 0 12px;font-size:14px;color:var(--doux)}
-.pip{width:26px;height:6px;background:rgba(143,199,238,.35)}.pip.fait{background:var(--vif)}.pip.encours{background:var(--surligne)}
-.pips span:last-child{margin-left:8px}
-.qui{font-size:13px;color:var(--doux);margin:0 0 2px}
-.bulle-agent{font-size:clamp(21px,2.3vw,27px);line-height:1.2;font-weight:600;letter-spacing:-.015em;margin:0 0 12px}
-.preuve-txt{font-size:15px;color:var(--encre);background:var(--surligne);padding:9px 14px;margin:0 0 12px}
-.alerte{color:var(--encre);background:var(--rouge);display:inline-block;font-weight:600;margin:0 0 10px;padding:3px 10px}
-.champ{width:100%;min-height:92px;padding:12px;border:0;background:var(--blanc);color:var(--encre);font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.42;resize:vertical}
-.dit{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-size:20px;margin:0}
-.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;align-items:center}
-.lien{background:none;border:0;padding:0;color:#fff;text-decoration:underline;cursor:pointer;font-size:15px}
-.memoire{margin-top:20px}
-.memoire h2{font-size:16px;margin:0 0 8px;font-weight:600}
-.fiches{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:9px}
-.fiche{background:var(--blanc);color:var(--encre);border-top:4px solid var(--crayon);padding:6px 10px 8px;box-shadow:3px 3px 0 var(--plan-2)}
-.fiche:last-child{animation:fiche .4s ease both}
-@keyframes fiche{from{transform:translateY(12px) rotate(1.5deg);opacity:0}}
-.fiche strong{display:block;font-weight:600;font-size:14px;line-height:1.2;margin-bottom:2px;text-transform:capitalize}
-.fiche span{font-family:"Source Serif 4",Georgia,serif;font-size:13px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.vide{color:var(--doux)}
-.dossier{background:var(--blanc);color:var(--encre);padding:8px 30px 20px;max-height:58vh;overflow:auto;font-family:"Source Serif 4",Georgia,serif;margin:0 0 16px;box-shadow:7px 7px 0 var(--plan-2)}
-.dossier h2,.dossier h3,.dossier h4{font-family:Archivo,sans-serif;line-height:1.2;margin:1.1em 0 .3em}
+.ecart-carte{display:grid;grid-template-columns:1fr 1.2fr;gap:24px;padding:14px 18px;margin-bottom:8px;background:var(--bloc);border:1px solid var(--ligne);border-radius:14px}
+.ecart-carte small{display:block;color:var(--doux);font-size:13px;margin-bottom:2px}
+.ecart-carte .ecrit{color:var(--doux);text-decoration:line-through;text-decoration-color:var(--rouge);text-decoration-thickness:2px;display:block;font-size:15.5px}
+.ecart-carte .reel{font-weight:600;font-size:18px;line-height:1.25;display:block;color:var(--vrai)}
+#scene>.btn{align-self:flex-start;margin-top:14px}
+.pips{display:flex;gap:5px;align-items:center;margin:0 0 16px;font:500 13px "JetBrains Mono",monospace;color:var(--doux)}
+.pip{width:24px;height:4px;border-radius:9px;background:var(--ligne)}.pip.fait{background:var(--vrai)}.pip.encours{background:var(--texte)}
+.pips span:last-child{margin-left:10px}
+.chat{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--ligne) transparent;padding:0 6px 12px 0}
+.chat .bulle{font-size:18px;animation:monte .35s ease both}
+.preuve-txt{font-size:14.5px;color:var(--vrai);margin-top:7px!important}
+.alerte{color:var(--fond);background:var(--rouge);display:inline-block;font-weight:700;border-radius:8px;padding:2px 9px;font-size:14.5px;margin-bottom:7px!important}
+.composer{flex:none;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;padding:10px 0 4px}
+.composer>.fil,.composer>.erreur,.composer>.btn{grid-column:1/-1;justify-self:start}
+.champ{display:block;width:100%;field-sizing:content;min-height:58px;max-height:132px;padding:14px 18px;border:1px solid var(--ligne);border-radius:12px;background:var(--bloc);color:var(--texte);font-size:17px;line-height:1.4;resize:none}
+.champ:focus-visible{outline-offset:-1px}
+.champ::placeholder{color:var(--terne)}
+.composer .actions{margin:0;flex-direction:column;align-items:stretch;gap:6px;text-align:center}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.formulaire{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.formulaire label{display:block;font-size:14px;color:var(--doux)}
+.formulaire input[type=text]{display:block;width:100%;margin-top:4px;padding:12px 16px;border:1px solid var(--ligne);border-radius:12px;background:var(--bloc);color:var(--texte);font-size:16px}
+.depot{grid-column:1/-1;border:2px dashed var(--ligne);border-radius:14px;padding:26px;text-align:center;color:var(--doux);cursor:pointer;display:block;background:var(--bloc)}
+.depot.survol{border-color:var(--action);color:var(--texte)}
+.depot strong{display:block;color:var(--texte);font-size:18px}
+.depot input{position:absolute;width:1px;height:1px;opacity:0}
+.liste-fichiers{grid-column:1/-1;margin:0;padding:0;list-style:none;font-size:15px}
+.liste-fichiers li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--ligne)}
+.discret{grid-column:1/-1;font-size:14px;color:var(--doux);margin:0}
+.vide-regles{color:var(--doux);font-size:15px;padding:10px 0;border-top:1px solid var(--ligne)}
+.dossier{flex:1;min-height:0;background:var(--bloc);border:1px solid var(--ligne);border-radius:14px;padding:10px 32px 24px;overflow:auto;margin:0 0 6px}
+#scene:has(>.dossier){overflow:hidden}
+#scene:has(>.dossier) .actions{flex:none;margin:8px 0}
+.dossier h2,.dossier h3,.dossier h4{line-height:1.2;margin:1.1em 0 .3em;letter-spacing:-.015em}
 .dossier p,.r p{margin:.4em 0}.dossier ul,.r ul{margin:.3em 0;padding-left:1.2em}
-.changement{padding:10px 0;border-top:1px solid rgba(143,199,238,.3)}
-.changement strong{display:block;font-weight:600}
+.changement{padding:12px 18px;margin-bottom:8px;background:var(--bloc);border:1px solid var(--ligne);border-radius:14px}
+.changement strong{display:block;font-weight:600;font-size:18px;line-height:1.25}
 .changement span{color:var(--doux);font-size:14px}
-.echange{margin:16px 0}
-.echange .q{font-weight:600;margin:0}
-.echange .r{font-family:"Source Serif 4",Georgia,serif;font-size:17px;background:var(--blanc);color:var(--encre);padding:8px 18px;margin-top:6px;border-left:6px solid var(--vert);box-shadow:7px 7px 0 var(--plan-2)}
-.erreur{background:#FBE9E6;color:#8A1F10;padding:12px 16px;margin:14px 0}
-.demo{color:var(--doux);font-size:13px;margin-top:28px}
-@media(max-width:900px){.page{grid-template-columns:1fr}.plan{position:static;height:auto;padding:10px}.cadre{min-height:0}.travail{padding:20px 16px 48px}.ecart-carte{grid-template-columns:1fr;gap:6px}.etapes li{font-size:12.5px}}
-@media(prefers-reduced-motion:reduce){.regle-texte,.note{transition:none}.fil li:last-child:before,.feuille.scan:after,.tampon,.fiche{animation:none}}
+.echange{display:flex;flex-direction:column;gap:12px;flex:none}
+.echange .q{align-self:flex-end;max-width:82%;margin:0;padding:13px 17px;background:var(--moi);color:var(--moi-t);border-radius:14px;font-size:18px;line-height:1.38}
+.echange .r{align-self:flex-start;max-width:90%;padding:8px 18px;background:var(--bulle);border:1px solid var(--ligne);border-radius:14px;font-size:17px}
+.erreur{background:#5A2620;color:#FFD9D2;border-radius:12px;padding:12px 16px;margin:14px 0}
+.demo{flex:none;color:var(--terne);font-size:13px;margin:4px 0 10px;text-align:center}
+@media(max-width:900px){.page{grid-template-columns:1fr;grid-template-rows:none;height:auto;overflow:visible}.cadre{height:auto}#scene,#scene:has(>.composer),#scene:has(>.dossier),.chat,.memoire{overflow:visible}.feuille{position:relative;inset:auto;margin-top:14px}.dossier{overflow:visible}.composer{grid-template-columns:1fr}.composer{position:sticky;bottom:0;background:var(--fond)}.barre{grid-template-columns:auto 1fr;padding:14px 16px}.barre>:first-child{display:none}.barre .credits,.barre .cadre-btn{font-size:13px}.logo{font-size:13px;letter-spacing:.24em}.plan{padding:16px}.travail{padding:18px 16px 0}.ecart-carte{grid-template-columns:1fr;gap:6px}.formulaire{grid-template-columns:1fr}.etapes{flex-wrap:wrap;gap:16px}.l-etape{grid-template-columns:1fr}.h-tete,.entrees{grid-template-columns:1fr}.entree{min-height:230px}.bulle{max-width:92%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.regle-texte,.note{transition:none}.fil li:last-child:before,.feuille.scan .regle,.tampon,.fiche,.chat .bulle{animation:none}.entree{transition:none}}
 </style>
 </head>
 <body>
-<div class="page">
+<div id="landing">
+  <header class="barre"><a class="cadre-btn" href="#comment">Comment ça marche</a><span class="logo"><svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="9" cy="13" r="7.5" stroke="currentColor" stroke-width="1.3"/><circle cx="17" cy="13" r="7.5" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2.4 2.4"/><circle cx="13" cy="13" r="1.7" fill="#DBEE63"/></svg>Passation</span><button class="cadre-btn aller-docs">Utiliser mes documents</button></header>
+  <section class="hero">
+    <div class="h-tete"><h1 class="l-titre">Il part vendredi. Son savoir reste.</h1><p class="l-sous">Passation lit le travail de l'employé qui s'en va, l'interroge sur ce qui n'est écrit nulle part, puis transmet tout à son remplaçant.</p></div>
+    <hr class="filet">
+    <div class="entrees">
+      <button class="entree vive aller-demo"><i aria-hidden="true">+</i><strong>Voir la démo avec Michel</strong><span>Michel quitte l'atelier. Camille prend la suite.</span></button>
+      <button class="entree aller-docs"><i aria-hidden="true">+</i><strong>Utiliser mes documents</strong><span>Dépose un PDF, un Word, un Excel, un CSV ou des notes.</span></button>
+    </div>
+  </section>
+  <div id="comment">
+    <section class="l-etape"><div><p class="l-num">Étape 1 sur 4</p><h2>Il lit le travail réel.</h2><p class="texte">Procédures, devis, tableaux, notes et e-mails. L'agent compare ce qui est prévu à ce qui se passe vraiment.</p></div>
+      <div class="vitre"><ul><li>procedures-commerciales.pdf</li><li>devis-2025.csv</li><li>achats.xlsx</li><li>notes-reunion.docx</li></ul></div></section>
+    <section class="l-etape"><div><p class="l-num">Étape 2 sur 4</p><h2>Il trouve ce qui manque.</h2><p class="texte">Il calcule les faits et repère les exceptions que personne n'a pensé à écrire.</p></div>
+      <div class="vitre"><div class="barre">Remise maximale autorisée : 5 %.</div><div class="vrai">10 devis sur 10 à 7 % pour Nordavel</div><div class="barre">Contrôle par l'opérateur.</div><div class="vrai">Karim contrôle tout l'inox 316</div></div></section>
+    <section class="l-etape"><div><p class="l-num">Étape 3 sur 4</p><h2>Il pose la bonne question.</h2><p class="texte">Il part des preuves, relance si la réponse est vague, et vérifie ce que l'expert affirme.</p></div>
+      <div class="vitre"><div class="bulle">Les 10 devis Nordavel sont à 7 %. La règle dit 5 %. Pourquoi ?</div><div class="bulle moi">En 2019, ils ont payé six mois d'avance et nous ont sauvés.</div></div></section>
+    <section class="l-etape"><div><p class="l-num">Étape 4 sur 4</p><h2>Il transmet la raison.</h2><p class="texte">Le savoir reste en mémoire. La procédure se met à jour, et une personne la valide.</p></div>
+      <div class="vitre"><div class="bulle moi">Puis-je accorder 7 % à Nordavel ?</div><div class="bulle">Oui, tant que Madame Lefort reste leur acheteuse. Michel l'a expliqué.</div></div></section>
+  </div>
+  <section class="l-fin"><h2>Le prochain départ est déjà prévu.</h2><div class="choix"><button class="btn aller-demo">Voir la démo avec Michel</button><button class="btn secondaire aller-docs">Utiliser mes documents</button></div><p class="l-pied">Prototype propulsé par Cominty.</p></section>
+</div>
+<div class="page" id="page" hidden>
+  <header class="barre"><button class="cadre-btn" onclick="location.reload()">Accueil</button><span class="logo"><svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="9" cy="13" r="7.5" stroke="currentColor" stroke-width="1.3"/><circle cx="17" cy="13" r="7.5" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2.4 2.4"/><circle cx="13" cy="13" r="1.7" fill="#DBEE63"/></svg>Passation</span><span class="credits" title="Coût réel de cette session"><span id="cout">0,0000 $</span></span></header>
+  <hr class="filet">
   <aside class="plan"><div class="cadre">
-    <div class="tete"><p class="marque">Passation</p><p class="soustitre">Ce qui est écrit, et ce qui se fait vraiment.</p></div>
-    <section class="feuille" id="feuille" aria-label="Procédure officielle">
-      <h2>Atelier Moreau Usinage</h2>
+        <section class="carte" id="carte">
+      <h2 id="feuille-titre">Atelier Moreau Usinage</h2>
       <p class="meta" id="version">Procédure commerciale, version 2023</p>
-      <ol class="regles" id="regles"></ol>
+      <button class="ouvrir" id="ouvrir-regles" aria-controls="feuille">Voir les règles</button>
     </section>
     <div class="cartouche" aria-label="Cartouche du document">
       <div>État<b id="bilan">Aucun écart trouvé</b></div>
       <div>Indice<b id="indice">A</b></div>
-      <div>Coût réel<b id="cout">0,0000 $</b></div>
     </div>
-  </div></aside>
+    <section class="memoire" id="memoire"></section>
+  </div>
+  <section class="feuille" id="feuille" aria-label="Règles de la procédure" hidden>
+    <div class="f-tete"><div><h2 id="f-titre"></h2><p class="meta" id="f-version"></p></div><button class="fermer" id="fermer-regles" aria-label="Fermer les règles">×</button></div>
+    <ol class="regles" id="regles"></ol>
+  </section></aside>
   <main class="travail">
-    <ol class="etapes" id="etapes"><li>Enquête</li><li>Entretien</li><li>Dossier</li><li>Remplaçante</li></ol>
+    <ol class="etapes" id="etapes"><li>Enquête</li><li>Entretien</li><li>Dossier</li><li>Relève</li></ol>
     <div id="scene" aria-live="polite"></div>
-    <p class="demo">Démo. Entreprise et données fictives. Agents propulsés par Cominty.</p>
+    <p class="demo" id="pied">Agents propulsés par Cominty.</p>
   </main>
 </div>
 <script>
 const $=(s)=>document.querySelector(s), scene=$('#scene');
 const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n};
 const DEMO={
- nordavel:["C'est un vieil accord, voilà.","En 2019, notre plus gros client nous a lâchés. Nordavel a payé six mois d'avance et nous a sauvés. Depuis, je leur laisse 7 %, tant que Madame Lefort reste leur acheteuse. J'ai fait cet accord avec elle."],
- aeronyx:["Aeronyx nous a qualifiés avec la matière Fonderis, car elle arrive avec un certificat de traçabilité complet. Acieral ne le fournit pas. Si on change de fournisseur, on perd la qualification. Il faudrait refaire tout l'audit."],
- karim:["Karim contrôle seulement les brides inox. Les autres pièces inox, c'est l'opérateur.","En 2022, un lot d'inox 316 fissuré nous est revenu : 40 000 euros de perte. Karim est le seul formé au contrôle par ressuage. S'il est absent, on n'expédie pas, on envoie le lot au laboratoire."],
- inox:["Karim contrôle seulement les brides inox. Les autres pièces inox, c'est l'opérateur.","En 2022, un lot d'inox 316 fissuré nous est revenu : 40 000 euros de perte. Karim est le seul formé au contrôle par ressuage. S'il est absent, on n'expédie pas, on envoie le lot au laboratoire."],
- breizhydra:["Leur activité dépend de la saison. En échange des 60 jours, ils ont bloqué leurs prix pendant deux ans. J'ai conclu cet accord avec leur gérant. Il est à revoir à chaque renouvellement."],
- delai:["Notre sous-traitant d'anodisation ferme deux semaines à Noël. Il faut prévenir les clients dès octobre, sinon ils sont déçus."],
- semaine:["Notre sous-traitant d'anodisation ferme deux semaines à Noël. Il faut prévenir les clients dès octobre, sinon ils sont déçus."]
+ 1:["C'est un vieil accord, voilà.","En 2019, notre plus gros client nous a lâchés. Nordavel a payé six mois d'avance et nous a sauvés. Depuis, je leur laisse 7 %, tant que Madame Lefort reste leur acheteuse. J'ai fait cet accord avec elle."],
+ 2:["Leur activité dépend de la saison. En échange des 60 jours, ils ont bloqué leurs prix pendant deux ans. J'ai conclu cet accord avec leur gérant. Il est à revoir à chaque renouvellement."],
+ 3:["Notre sous-traitant d'anodisation ferme deux semaines à Noël. Il faut prévenir les clients dès octobre, sinon ils sont déçus."],
+ 4:["Aeronyx nous a qualifiés avec la matière Fonderis, car elle arrive avec un certificat de traçabilité complet. Acieral ne le fournit pas. Si on change de fournisseur, on perd la qualification. Il faudrait refaire tout l'audit."],
+ 5:["Karim contrôle seulement les brides inox. Les autres pièces inox, c'est l'opérateur.","En 2022, un lot d'inox 316 fissuré nous est revenu : 40 000 euros de perte. Karim est le seul formé au contrôle par ressuage. S'il est absent, on n'expédie pas, on envoie le lot au laboratoire."]
 };
 const echappe=(t)=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const gras=(t)=>t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
@@ -154,7 +238,7 @@ const QUESTIONS_DEMO=[
  "On est en octobre. Que dois-je dire aux clients pour les délais de fin d'année ?"
 ];
 let REGLES=[];
-const etat={sid:null,pratiques:[],i:0,essai:0,question:'',memoire:[],occupe:false};
+const etat={sid:null,pratiques:[],i:0,essai:0,question:'',memoire:[],occupe:false,mode:'demo',partant:'Michel',remplacant:'Camille'};
 
 async function appel(url,corps,surEvenement){
   const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','X-Session':etat.sid},body:corps?JSON.stringify(corps):undefined});
@@ -174,11 +258,56 @@ function etape(n){[...$('#etapes').children].forEach((li,i)=>{li.className=i<n?'
 function fil(){const f=el('ul','fil');return{n:f,ajoute:(t)=>{if(f.lastChild?.textContent!==t)f.append(el('li',null,t))}}}
 function erreur(m,relancer){scene.append(el('p','erreur',m));if(relancer){const b=el('button','btn secondaire','Réessayer');b.onclick=relancer;scene.append(b)}}
 
+function entrer(){$('#landing').hidden=true;$('#page').hidden=false;scrollTo(0,0);afficherMemoire()}
 function accueil(){
-  etape(0);scene.replaceChildren();
-  scene.append(el('h1',null,'Michel part dans trois semaines. Trente ans de métier partent avec lui.'));
-  scene.append(el('p','intro',"L'agent lit ses procédures, ses devis, ses achats, ses expéditions et ses e-mails. Il cherche ce que Michel fait vraiment, puis il l'interroge sur ce qui n'est écrit nulle part."));
-  const b=el('button','btn','Lancer l\'enquête');b.onclick=enquete;scene.append(b);
+  etape(0);
+  const ouvrir=(action)=>async()=>{
+    const a=document.querySelector('.l-sous');
+    try{await pret}catch{a.textContent=(location.protocol==='http:'||location.protocol==='https:')&&!location.hostname.includes('claude')?'Le serveur ne répond pas pour le moment. Recharge la page dans une minute.':'Ceci est un aperçu du fichier. Ouvre l\'application depuis son adresse web.';a.style.color='#FF9080';return}
+    entrer();action()};
+  document.querySelectorAll('.aller-demo').forEach(b=>b.onclick=ouvrir(()=>{etat.mode='demo';$('#pied').textContent='Démo. Entreprise et données fictives. Agents propulsés par Cominty.';enquete()}));
+  document.querySelectorAll('.aller-docs').forEach(b=>b.onclick=ouvrir(mesDocuments));
+}
+const boutonRegles=(t)=>{$('#ouvrir-regles').textContent=t};
+function ouvrirRegles(oui){const f=$('#feuille');if(oui){$('#f-titre').textContent=$('#feuille-titre').textContent;$('#f-version').textContent=$('#version').textContent}f.hidden=!oui;(oui?$('#fermer-regles'):$('#ouvrir-regles')).focus({preventScroll:true})}
+function dessineRegles(regles,nouvelle){
+  const ol=$('#regles');ol.replaceChildren();
+  for(const r of regles){const li=el('li','regle'+(nouvelle?' nouvelle':''));li.append(el('span','regle-texte',r),el('span','note'));ol.append(li)}
+  const vide=$('.vide-regles');if(vide)vide.remove();
+  if(!regles.length)ol.after(el('p','vide-regles','Aucune règle écrite trouvée dans les documents.'));
+  boutonRegles(regles.length?`Voir les ${regles.length} règles`:'Aucune règle pour l\'instant');
+}
+function mesDocuments(){
+  etape(0);etat.mode='libre';const fichiers=[];
+  $('#feuille-titre').textContent='Vos documents';$('#version').textContent='Les règles apparaîtront ici après l\'enquête';dessineRegles([]);$('.vide-regles')?.remove();
+  $('#pied').textContent='Agents propulsés par Cominty.';
+  scene.replaceChildren(el('h1',null,'Préparer une passation'),el('p','intro','Dépose les documents de travail de la personne qui part : procédures, devis, tableaux ou notes.'));
+  const f=el('div','formulaire'),lp=el('label',null,'Personne qui part'),lr=el('label',null,'Personne qui prend la suite');
+  const ip=el('input');ip.type='text';ip.maxLength=80;ip.placeholder='Exemple : Sarah Martin';const ir=el('input');ir.type='text';ir.maxLength=80;ir.placeholder='Exemple : Yanis';lp.append(ip);lr.append(ir);
+  const zone=el('label','depot'),inp=el('input');inp.type='file';inp.multiple=true;inp.accept='.pdf,.docx,.xlsx,.csv,.txt,.md';
+  zone.append(el('strong',null,'Dépose tes documents ici'),el('span',null,'ou clique pour les choisir. 5 fichiers maximum, 5 Mo par fichier.'),inp);
+  const liste=el('ul','liste-fichiers');
+  const ajoute=(l)=>{for(const x of l){if(fichiers.length<5&&!fichiers.some(y=>y.name===x.name))fichiers.push(x)}montre()};
+  function montre(){liste.replaceChildren();for(const x of fichiers){const li=el('li'),r=el('button','lien','Retirer');r.type='button';r.onclick=()=>{fichiers.splice(fichiers.indexOf(x),1);montre()};li.append(el('span',null,x.name),r);liste.append(li)}}
+  inp.onchange=()=>{ajoute(inp.files);inp.value=''};
+  for(const e of ['dragenter','dragover'])zone.addEventListener(e,v=>{v.preventDefault();zone.classList.add('survol')});
+  for(const e of ['dragleave','drop'])zone.addEventListener(e,v=>{v.preventDefault();zone.classList.remove('survol')});
+  zone.addEventListener('drop',v=>ajoute(v.dataTransfer.files));
+  f.append(lp,lr,zone,liste,el('p','discret','Prototype : ne dépose pas de données sensibles ou confidentielles. Formats acceptés : PDF, Word, Excel, CSV, TXT, MD.'));
+  const a=el('div','actions'),b=el('button','btn','Lancer l\'enquête'),ret=el('button','lien','Revenir à l\'accueil');ret.onclick=()=>location.reload();
+  const info=el('p','erreur');info.hidden=true;
+  b.onclick=async()=>{const partant=ip.value.trim(),remp=ir.value.trim();info.hidden=true;
+    const e=!partant?'Écris le nom de la personne qui part.':!remp?'Écris le nom de la personne qui prend la suite.':!fichiers.length?'Dépose au moins un document.':'';
+    if(e){info.textContent=e;info.hidden=false;return}
+    b.disabled=true;b.textContent='Envoi des documents…';
+    const lire=(x)=>new Promise((ok,non)=>{const l=new FileReader();l.onload=()=>ok({nom:x.name,contenu:String(l.result).split(',')[1]||''});l.onerror=()=>non(new Error(`${x.name} n'a pas pu être lu.`));l.readAsDataURL(x)});
+    try{for(const x of fichiers)if(x.size>5*1024*1024)throw new Error(`${x.name} dépasse 5 Mo.`);
+      const envoi=await Promise.all(fichiers.map(lire));
+      const r=await fetch('/api/mes-documents',{method:'POST',headers:{'X-Session':etat.sid,'Content-Type':'application/json'},body:JSON.stringify({partant,remplacant:remp,fichiers:envoi})});
+      if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(typeof j.detail==='string'?j.detail:'Vérifie les champs et les fichiers.')}
+      etat.partant=partant.split(/\s+/)[0];etat.remplacant=remp;enquete()}
+    catch(x){info.textContent=x.message;info.hidden=false;b.disabled=false;b.textContent='Lancer l\'enquête'}};
+  a.append(b,ret);scene.append(f,info,a);
 }
 async function enquete(){
   scene.replaceChildren(el('h1',null,'L\'agent compare les règles et la réalité'));
@@ -186,57 +315,62 @@ async function enquete(){
   const fe=$('#feuille');fe.style.setProperty('--h',fe.clientHeight+'px');fe.classList.add('scan');
   try{await appel('/api/enquete',null,(ev)=>{
     if(ev.t==='etape')f.ajoute(ev.texte);
-    if(ev.t==='enquete'){fe.classList.remove('scan');etat.pratiques=ev.pratiques;etat.i=0;barrer();resultats()}
+    if(ev.t==='enquete'){fe.classList.remove('scan');etat.pratiques=ev.pratiques;etat.i=0;if(etat.mode==='libre'){REGLES=ev.regles||[];$('#feuille-titre').textContent=ev.titre||'Vos documents';$('#version').textContent='Règles trouvées dans les documents';dessineRegles(REGLES)}barrer();resultats()}
   })}catch(e){fe.classList.remove('scan');erreur(e.message,enquete)}
 }
 function barrer(){
   const lis=[...$('#regles').children];let n=0;
   etat.pratiques.forEach((p,k)=>{const li=lis[(p.regle||0)-1];if(!li)return;n++;
     setTimeout(()=>{li.classList.add('barree');li.querySelector('.note').textContent=p.titre},k*700)});
-  $('#bilan').textContent=`${n} règles contredites`;
+  $('#bilan').textContent=n?`${n} ${n>1?'règles contredites':'règle contredite'}`:`${etat.pratiques.length} pratiques trouvées`;
+  if(n)boutonRegles(`${n} ${n>1?'règles contredites':'règle contredite'}`);
 }
 function resultats(){
   etape(0);scene.replaceChildren(el('h1',null,`${etat.pratiques.length} pratiques ne sont écrites nulle part`));
-  scene.append(el('p','intro','Les faits viennent des documents. Seul Michel connaît les raisons, alors l\'agent va lui poser la question.'));
+  scene.append(el('p','intro',`Les faits viennent des documents. Seul ${etat.partant} connaît les raisons, alors l'agent va poser la question.`));
   for(const p of etat.pratiques){const c=el('article','ecart-carte'),e=el('div'),r=el('div');
-    e.append(el('small',null,'Écrit'),el('span','ecrit',REGLES[(p.regle||0)-1]||'Aucune règle écrite'));
+    e.append(el('small',null,'Écrit'),el('span',REGLES[(p.regle||0)-1]?'ecrit':'',REGLES[(p.regle||0)-1]||'Rien sur ce sujet'));
     r.append(el('small',null,'Réel'),el('span','reel',p.titre));c.append(e,r);scene.append(c)}
-  const b=el('button','btn','Commencer l\'entretien avec Michel');b.onclick=()=>{etat.essai=0;poser()};scene.append(b);
+  const b=el('button','btn',`Commencer l'entretien avec ${etat.partant}`);b.onclick=()=>{etat.essai=0;poser()};scene.append(b);
 }
-function exemple(p){const cle=Object.keys(DEMO).find(k=>(p.id+' '+p.titre).toLowerCase().includes(k));return cle?DEMO[cle]:null}
+function exemple(p){return etat.mode==='demo'?DEMO[p.regle]||null:null}
+function zoneChat(){
+  if(!etat.chat||!etat.chat.isConnected){etat.pips=el('div','pips');etat.chat=el('div','chat');etat.comp=el('div','composer');scene.replaceChildren(etat.pips,etat.chat,etat.comp)}
+  return etat.chat}
+const enBas=()=>{const c=$('#scene .chat');if(!c)return;if(c.scrollHeight>c.clientHeight)c.scrollTo({top:c.scrollHeight,behavior:'smooth'});else $('#scene .composer')?.scrollIntoView({block:'end'})};
 function poser(texte,contredit){
   etape(1);const p=etat.pratiques[etat.i];etat.question=texte||p.question;
-  const pips=el('div','pips');etat.pratiques.forEach((_,k)=>pips.append(el('i','pip'+(k<etat.i?' fait':k===etat.i?' encours':''))));pips.append(el('span',null,texte?`Relance sur la pratique ${etat.i+1} sur ${etat.pratiques.length}`:`Question ${etat.i+1} sur ${etat.pratiques.length}`));scene.replaceChildren(pips);
-  if(contredit)scene.append(el('p','alerte','Cette réponse ne correspond pas aux données.'));
-  scene.append(el('p','qui',"L'agent à Michel"),el('p','bulle-agent',etat.question));
-  if(!texte)scene.append(el('p','preuve-txt',p.preuve));
-  const t=el('textarea','champ');t.placeholder='Réponse de Michel';t.setAttribute('aria-label','Réponse de Michel');scene.append(t);
+  const c=zoneChat();etat.pips.replaceChildren();
+  etat.pratiques.forEach((_,k)=>etat.pips.append(el('i','pip'+(k<etat.i?' fait':k===etat.i?' encours':''))));
+  etat.pips.append(el('span',null,texte?`Relance sur la pratique ${etat.i+1} sur ${etat.pratiques.length}`:`Question ${etat.i+1} sur ${etat.pratiques.length}`));
+  const q=el('div','bulle');if(contredit)q.append(el('p','alerte','Cette réponse ne correspond pas aux données.'));
+  q.append(el('p',null,etat.question));if(!texte)q.append(el('p','preuve-txt',p.preuve));c.append(q);
+  const t=el('textarea','champ');t.placeholder=`Réponse de ${etat.partant}`;t.setAttribute('aria-label',`Réponse de ${etat.partant}`);
   const a=el('div','actions'),b=el('button','btn','Envoyer la réponse');
   b.onclick=()=>{if(t.value.trim())repondre(p,t.value.trim())};a.append(b);
+  t.addEventListener('keydown',v=>{if(v.key==='Enter'&&!v.shiftKey){v.preventDefault();b.click()}});
   const ex=exemple(p);if(ex){const l=el('button','lien','Utiliser la réponse de démo');l.onclick=()=>{t.value=ex[Math.min(etat.essai,ex.length-1)];t.focus()};a.append(l)}
-  scene.append(a);afficherMemoire();t.focus();
+  etat.comp.replaceChildren(t,a);afficherMemoire();t.focus({preventScroll:true});enBas(etat.comp);
 }
-async function repondre(p,texte){
-  scene.replaceChildren(el('p','bulle-agent',etat.question));
-  scene.append(el('p','dit',`« ${texte} »`));
-  const f=fil();scene.append(f.n);
+async function repondre(p,texte,encore){
+  if(!encore)etat.chat.append(el('div','bulle moi',texte));
+  const f=fil();etat.comp.replaceChildren(f.n);enBas(etat.comp);
   try{await appel('/api/reponse',{id:p.id,texte},(ev)=>{
-    if(ev.t==='etape')f.ajoute(ev.texte);
+    if(ev.t==='etape'){f.ajoute(ev.texte);enBas(etat.comp)}
     if(ev.t==='reponse'){etat.memoire=ev.memoire;
       if(ev.relance){etat.essai++;poser(ev.relance,ev.contradiction)}
       else{etat.i++;etat.essai=0;etat.i<etat.pratiques.length?poser():finEntretien()}}
-  })}catch(e){erreur(e.message,()=>poser(etat.question===p.question?undefined:etat.question))}
+  })}catch(e){const b=el('button','btn secondaire','Réessayer');b.onclick=()=>repondre(p,texte,true);etat.comp.replaceChildren(el('p','erreur',e.message),b)}
 }
 function titreSavoir(chemin){return chemin.replace(/^.*\//,'').replace(/\.md$/,'').replace(/-/g,' ')}
 function afficherMemoire(){
-  const m=el('section','memoire');m.append(el('h2',null,`Mémoire de l'entreprise : ${etat.memoire.length} ${etat.memoire.length>1?'savoirs gardés':'savoir gardé'}`));
-  if(!etat.memoire.length)m.append(el('p','vide','Rien pour l\'instant. Chaque réponse claire sera gardée ici.'));
+  const m=$('#memoire');m.replaceChildren(el('h2',null,`Mémoire de l'entreprise : ${etat.memoire.length} ${etat.memoire.length>1?'savoirs gardés':'savoir gardé'}`));
+  if(!etat.memoire.length){m.append(el('p','vide','Chaque réponse claire sera gardée ici.'));return}
   const g=el('div','fiches');for(const f of etat.memoire){const d=el('div','fiche');d.append(el('strong',null,titreSavoir(f.chemin)),el('span',null,brut(f.contenu)));g.append(d)}m.append(g);
-  scene.append(m);
 }
 function finEntretien(){
-  etape(2);scene.replaceChildren(el('h1',null,`Le savoir de Michel est gardé`));
-  scene.append(el('p','intro','L\'agent peut maintenant écrire le dossier pour Camille, sa remplaçante.'));
+  etape(2);scene.replaceChildren(el('h1',null,`Le savoir de ${etat.partant} est gardé`));
+  scene.append(el('p','intro',`L'agent peut maintenant écrire le dossier pour ${etat.remplacant}.`));
   const b=el('button','btn','Écrire le dossier de passation');b.onclick=dossier;scene.append(b);afficherMemoire();
 }
 async function dossier(){
@@ -257,43 +391,48 @@ async function procedure(){
   })}catch(e){erreur(e.message,procedure)}
 }
 function revue(regles){
+  if(etat.mode==='libre'&&regles.length>$('#regles').children.length)dessineRegles(Array.from({length:Math.max(0,...regles.map(r=>r.numero))},(_,i)=>REGLES[i]||''));
   const lis=[...$('#regles').children];
   regles.forEach((r,k)=>{const li=lis[r.numero-1];if(!li)return;setTimeout(()=>{li.classList.remove('barree');li.classList.add('nouvelle');li.querySelector('.regle-texte').textContent=r.texte},k*500)});
-  $('#version').textContent='Nouvelle version proposée par l\'agent';$('#bilan').textContent='À valider par une personne';
+  $('#version').textContent='Nouvelle version proposée par l\'agent';boutonRegles(`${regles.length} ${regles.length>1?'règles modifiées':'règle modifiée'}`);$('#bilan').textContent='À valider par une personne';
   scene.replaceChildren(el('h1',null,'La procédure dit enfin la vérité'));
   scene.append(el('p','intro','L\'agent propose. Une personne décide. Rien ne change sans validation.'));
   for(const r of regles){const d=el('div','changement');d.append(el('strong',null,`Règle ${r.numero} : ${r.changement}`),el('span',null,`Source : ${r.source}`));scene.append(d)}
   const a=el('div','actions'),b=el('button','btn','Valider la nouvelle procédure');
   b.onclick=async()=>{b.disabled=true;
     try{const r=await fetch('/api/procedure/valider',{method:'POST',headers:{'X-Session':etat.sid}});if(!r.ok)throw new Error('La validation a échoué. Réessaie.');
-      $('#version').textContent='Nouvelle version validée';$('#bilan').textContent='Validée, gardée en mémoire';$('#indice').textContent='B';$('#feuille').append(el('div','tampon','Validé'));setTimeout(camille,1100)}
+      $('#version').textContent='Nouvelle version validée';$('#bilan').textContent='Validée, gardée en mémoire';$('#indice').textContent='B';$('#carte').append(el('div','tampon','Validé'));setTimeout(camille,1100)}
     catch(e){b.disabled=false;erreur(e.message)}};
   a.append(b);scene.append(a);
 }
 function camille(){
-  etape(3);scene.replaceChildren(el('h1',null,'Six mois plus tard, Camille a une question'));
-  scene.append(el('p','intro','Michel n\'est plus là. C\'est une nouvelle conversation, sans les documents : l\'agent répond depuis la mémoire de l\'entreprise.'));
-  const zone=el('div');scene.append(zone);
-  const t=el('textarea','champ');t.setAttribute('aria-label','Question de Camille');t.placeholder='Pose une question sur le travail de Michel';scene.append(t);
+  etape(3);scene.replaceChildren(el('h1',null,etat.mode==='demo'?'Six mois plus tard, Camille a une question':`${etat.remplacant} a une question`));
+  scene.append(el('p','intro',`${etat.partant} n'est plus là. C'est une nouvelle conversation, sans les documents : l'agent répond depuis la mémoire de l'entreprise.`));
+  const zone=el('div','chat');scene.append(zone);
+  const t=el('textarea','champ');t.setAttribute('aria-label',`Question de ${etat.remplacant}`);t.placeholder=`Pose une question sur le travail de ${etat.partant}`;const comp=el('div','composer');comp.append(t);scene.append(comp);
   const a=el('div','actions'),b=el('button','btn','Poser la question'),l=el('button','lien');
   let rang=0;l.textContent=`Question de démo 1 sur ${QUESTIONS_DEMO.length}`;
   l.onclick=()=>{t.value=QUESTIONS_DEMO[rang];rang++;t.focus();
     if(rang<QUESTIONS_DEMO.length)l.textContent=`Question de démo ${rang+1} sur ${QUESTIONS_DEMO.length}`;else l.remove()};
-  b.onclick=async()=>{const q=t.value.trim();if(!q||b.disabled)return;b.disabled=true;t.value='';
-    const e=el('div','echange');e.append(el('p','q',q));const f=fil();e.append(f.n);zone.append(e);
+  b.onclick=async()=>{const q=t.value.trim();if(!q||b.disabled)return;b.disabled=true;t.value='';scene.querySelector('.intro')?.remove();
+    const e=el('div','echange');e.append(el('p','q',q));const f=fil();e.append(f.n);zone.append(e);enBas(comp);
     try{await appel('/api/remplacant',{question:q},(ev)=>{
       if(ev.t==='etape')f.ajoute(ev.texte);
-      if(ev.t==='remplacant'){f.n.remove();const r=el('div','r');r.innerHTML=rendu(ev.texte);e.append(r)}
+      if(ev.t==='remplacant'){f.n.remove();const r=el('div','r');r.innerHTML=rendu(ev.texte);e.append(r);enBas(comp)}
     })}catch(x){e.append(el('p','erreur',x.message))}
     b.disabled=false};
-  a.append(b,l);scene.append(a);
+  a.append(b);if(etat.mode==='demo')a.append(l);comp.append(a);
+  t.addEventListener('keydown',v=>{if(v.key==='Enter'&&!v.shiftKey){v.preventDefault();b.click()}});t.focus();
 }
-(async()=>{
+const pret=(async()=>{
   const reg=await (await fetch('/api/procedures')).json();
-  REGLES=reg.regles;for(const r of reg.regles){const li=el('li','regle');li.append(el('span','regle-texte',r),el('span','note'));$('#regles').append(li)}
+  REGLES=reg.regles;dessineRegles(reg.regles);
   etat.sid=(await (await fetch('/api/session',{method:'POST'})).json()).sid;
-  accueil();
-})().catch(e=>erreur('Le serveur ne répond pas. Vérifie qu\'il est lancé.'));
+})();
+pret.catch(()=>{});
+$('#ouvrir-regles').onclick=()=>ouvrirRegles(true);$('#fermer-regles').onclick=()=>ouvrirRegles(false);
+document.addEventListener('keydown',v=>{if(v.key==='Escape'&&!$('#feuille').hidden)ouvrirRegles(false)});
+accueil();
 </script>
 </body>
 </html>
