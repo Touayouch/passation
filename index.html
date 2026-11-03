@@ -15,13 +15,13 @@ button,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid #fff;outline-offset:2px}
 .page{display:grid;grid-template-columns:minmax(400px,40%) 1fr;min-height:100%}
 .plan{padding:16px 0 16px 16px;position:sticky;top:0;height:100vh;overflow:auto}
-.cadre{border:1px solid var(--trait);height:100%;min-height:640px;padding:14px 18px 14px;display:flex;flex-direction:column;gap:11px;position:relative}
+.cadre{border:1px solid var(--trait);min-height:100%;padding:14px 18px 14px;display:flex;flex-direction:column;gap:11px;position:relative}
 .cadre:before,.cadre:after{content:"";position:absolute;left:50%;width:1px;height:10px;background:var(--trait)}
 .cadre:before{top:-1px}.cadre:after{bottom:-1px}
 .tete{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
 .marque{font-weight:800;font-size:28px;letter-spacing:-.035em;margin:0}
 .soustitre{margin:0;color:var(--doux);font-size:14px;text-align:right}
-.feuille{background:var(--blanc);color:var(--encre);padding:14px 20px 8px;position:relative;overflow:hidden;flex:1;box-shadow:7px 7px 0 var(--plan-2)}
+.feuille{background:var(--blanc);color:var(--encre);padding:14px 20px 8px;position:relative;overflow:hidden;flex:1 0 auto;box-shadow:7px 7px 0 var(--plan-2)}
 .feuille h2{margin:0;font-size:18px;font-weight:600}
 .feuille .meta{margin:0 0 7px;color:var(--gris);font-size:13.5px}
 .regles{margin:0;padding:0;list-style:none;counter-reset:r}
