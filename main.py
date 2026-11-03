@@ -33,19 +33,26 @@ MAX_SESSIONS = 50
 TYPES = {".csv": "text/csv", ".txt": "text/plain"}
 
 PROMPT_ENQUETE = """Michel Moreau, responsable commercial, quitte l'entreprise.
-Analyse les 5 fichiers joints et trouve les 5 pratiques les plus importantes qui ne sont
-pas ecrites ou qui contredisent les procedures. Calcule les faits sur les donnees.
-Ne devine jamais une raison.
+Analyse les 5 fichiers joints. La procedure officielle contient 5 regles numerotees.
+Pour chacune des 5 regles, trouve la pratique reelle qui fait exception a cette regle.
+Donne exactement une pratique par regle : aucune regle oubliee, aucune regle en double.
+Un cas qui respecte la regle n'est pas un ecart. Cherche seulement ce qui ne la respecte pas.
+Calcule les faits sur les donnees. Ne devine jamais une raison.
 
 Reponds uniquement avec ce JSON, sans texte autour :
 {"pratiques": [{
   "id": "identifiant-court-en-minuscules",
   "titre": "la pratique en une phrase courte",
-  "regle": numero de la regle officielle contredite (1 a 5) ou null,
+  "regle": numero de la regle officielle contredite (1 a 5),
   "preuve": "les faits exacts, avec chiffres",
   "sources": ["fichier.csv"],
   "question": "une seule question courte pour Michel, qui cite la preuve"
 }]}"""
+
+PROMPT_CORRECTION = """Ta liste n'est pas valide. Il faut exactement une pratique pour chacune
+des regles 1, 2, 3, 4 et 5. Regles manquantes : {manquantes}. Regles en double : {doubles}.
+Rappel : un cas qui respecte la regle n'est pas un ecart. Corrige en verifiant les donnees.
+Reponds uniquement avec le meme JSON, avec les 5 pratiques."""
 
 PROMPT_REPONSE = """Entretien avec Michel Moreau, pratique "{id}" : {titre}.
 Preuve : {preuve}
@@ -127,6 +134,14 @@ def extraire_json(texte: str) -> dict[str, Any]:
     raise ValueError("JSON illisible dans la reponse de l'agent.")
 
 
+def controle_regles(pratiques: list[dict[str, Any]]) -> tuple[list[int], list[int]]:
+    """Renvoie les regles manquantes et les regles citees plusieurs fois."""
+    numeros = [p.get("regle") for p in pratiques]
+    manquantes = [n for n in range(1, 6) if n not in numeros]
+    doubles = sorted({n for n in numeros if numeros.count(n) > 1})
+    return manquantes, doubles
+
+
 def libelle(event: Any) -> str | None:
     """Traduit un evenement Cominty en etape lisible pour l'interface."""
     if isinstance(event, events.SettingUpSandbox):
@@ -170,6 +185,8 @@ async def memoire(client: Any, session: Session) -> list[dict[str, str]]:
     """Lit la memoire reelle : l'interface ne croit pas l'agent sur parole."""
     fichiers = []
     for resume in await client.memory.list(namespace=session.namespace):
+        if not resume.path.startswith("savoir/"):
+            continue
         complet = await client.memory.get(resume.path, namespace=session.namespace)
         fichiers.append({"chemin": complet.path, "contenu": complet.content or ""})
     return fichiers
@@ -244,7 +261,22 @@ async def enquete(x_session: str | None = Header(default=None)) -> StreamingResp
                 yield morceau
             reply = await run.result()
             session.thread_id = str(run.thread.id)
-            session.pratiques = extraire_json(reply.content)["pratiques"][:5]
+            pratiques = extraire_json(reply.content)["pratiques"]
+            manquantes, doubles = controle_regles(pratiques)
+            if manquantes or doubles:
+                yield ligne({"t": "etape", "texte": "Vérification de l'enquête"})
+                run = await client.chat.send(
+                    session.thread_id,
+                    agent_id=AGENT_ID,
+                    message=PROMPT_CORRECTION.format(manquantes=manquantes, doubles=doubles),
+                )
+                async for morceau in suivre(run, session):
+                    yield morceau
+                pratiques = extraire_json((await run.result()).content)["pratiques"]
+                manquantes, doubles = controle_regles(pratiques)
+            if manquantes or doubles:
+                raise ValueError("L'enquête ne couvre pas les 5 règles. Relance-la.")
+            session.pratiques = pratiques
             yield ligne({"t": "enquete", "pratiques": session.pratiques})
 
     return securise(flux())
