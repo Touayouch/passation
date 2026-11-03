@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Passation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Caveat:wght@600&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--plan:#0D3560;--plan-2:#154A80;--trait:#8FC7EE;--doux:#CFE4F4;--blanc:#fff;--encre:#0B2239;--gris:#55697C;--ligne:#C4D2DE;--rouge:#FF6B57;--crayon:#C2301C;--surligne:#FFD84D;--vert:#0F7B55;--vif:#6FE3B2}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font:16px/1.5 Archivo,system-ui,sans-serif;color:#fff;background-color:var(--plan);background-image:linear-gradient(rgba(143,199,238,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(143,199,238,.08) 1px,transparent 1px);background-size:24px 24px}
+button,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.page{display:grid;grid-template-columns:minmax(400px,40%) 1fr;min-height:100%}
+.plan{padding:16px 0 16px 16px;position:sticky;top:0;height:100vh;overflow:auto}
+.cadre{border:1px solid var(--trait);height:100%;min-height:640px;padding:14px 18px 14px;display:flex;flex-direction:column;gap:11px;position:relative}
+.cadre:before,.cadre:after{content:"";position:absolute;left:50%;width:1px;height:10px;background:var(--trait)}
+.cadre:before{top:-1px}.cadre:after{bottom:-1px}
+.tete{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.marque{font-weight:800;font-size:28px;letter-spacing:-.035em;margin:0}
+.soustitre{margin:0;color:var(--doux);font-size:14px;text-align:right}
+.feuille{background:var(--blanc);color:var(--encre);padding:14px 20px 8px;position:relative;overflow:hidden;flex:1;box-shadow:7px 7px 0 var(--plan-2)}
+.feuille h2{margin:0;font-size:18px;font-weight:600}
+.feuille .meta{margin:0 0 7px;color:var(--gris);font-size:13.5px}
+.regles{margin:0;padding:0;list-style:none;counter-reset:r}
+.regle{padding:8px 0 8px 28px;border-top:1px solid var(--ligne);position:relative;counter-increment:r;font-size:15.5px;line-height:1.36}
+.regle:before{content:counter(r);position:absolute;left:0;top:10px;width:18px;height:18px;border:1px solid var(--gris);border-radius:50%;font-size:11px;line-height:16px;text-align:center;color:var(--gris)}
+.regle-texte{background-image:linear-gradient(var(--crayon),var(--crayon));background-size:0 2px;background-position:0 58%;background-repeat:no-repeat;transition:background-size .7s ease}
+.regle.barree .regle-texte{background-size:100% 2px}
+.note{display:block;font:600 21px/1.08 Caveat,cursive;color:var(--crayon);max-height:0;overflow:hidden;transition:max-height .5s ease .4s}
+.regle.barree .note{max-height:70px;margin-top:2px}
+.regle.nouvelle .regle-texte{background-size:0 2px;color:var(--vert);font-weight:500}
+.regle.nouvelle .note{max-height:0;margin:0}
+.regle.nouvelle:before{border-color:var(--vert);color:#fff;background:var(--vert)}
+.feuille.scan:after{content:"";position:absolute;left:0;right:0;top:0;height:64px;background:linear-gradient(transparent,rgba(143,199,238,.5));border-bottom:2px solid var(--plan-2);animation:scan 2.4s ease-in-out infinite alternate}
+@keyframes scan{to{transform:translateY(calc(var(--h,420px) - 64px))}}
+.tampon{position:absolute;right:16px;bottom:24px;border:4px double var(--vert);color:var(--vert);font-weight:800;font-size:30px;letter-spacing:.06em;text-transform:uppercase;padding:2px 14px;transform:rotate(-8deg);background:rgba(255,255,255,.85);animation:tampon .28s cubic-bezier(.2,1.5,.5,1) both}
+@keyframes tampon{from{transform:rotate(-8deg) scale(2.2);opacity:0}}
+.cartouche{display:grid;grid-template-columns:1.4fr .55fr 1fr;border:1px solid var(--trait);font-size:12.5px;color:var(--doux)}
+.cartouche div{padding:4px 9px;border-left:1px solid var(--trait)}
+.cartouche div:first-child{border-left:0}
+.cartouche b{display:block;color:#fff;font-size:15px;font-weight:600}
+.travail{padding:18px clamp(20px,4vw,60px) 64px;max-width:940px;min-width:0}
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);margin:0 0 24px;padding:0;list-style:none}
+.etapes li{font-size:14px;color:var(--doux);padding-top:20px;position:relative}
+.etapes li:before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:rgba(143,199,238,.35)}
+.etapes li:after{content:"";position:absolute;left:0;top:0;width:14px;height:14px;border-radius:50%;background:var(--plan);border:2px solid var(--trait)}
+.etapes li.finie:before,.etapes li.active:before{background:var(--trait)}
+.etapes li.finie:after{background:var(--trait)}
+.etapes li.active{color:#fff;font-weight:600}
+.etapes li.active:after{background:var(--surligne);border-color:var(--surligne)}
+h1{font-size:clamp(32px,4vw,56px);line-height:1;letter-spacing:-.035em;margin:0 0 14px;font-weight:800}
+.intro{max-width:56ch;margin:0 0 20px;color:var(--doux);font-size:17px}
+.btn{background:var(--surligne);color:var(--encre);border:0;padding:13px 22px;font-weight:600;cursor:pointer;box-shadow:4px 4px 0 var(--plan-2)}
+.btn:hover{background:#FFE680}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--plan-2)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.secondaire{background:none;color:#fff;box-shadow:inset 0 0 0 1px var(--trait)}
+.fil{margin:18px 0;padding:0;list-style:none;font-size:15px;color:var(--doux)}
+.fil li{padding:2px 0 2px 20px;position:relative}
+.fil li:before{content:"";position:absolute;left:3px;top:.65em;width:7px;height:7px;background:rgba(143,199,238,.5);border-radius:50%}
+.fil li:last-child:before{background:var(--surligne);animation:pouls 1s infinite}
+@keyframes pouls{50%{opacity:.25}}
+.ecart-carte{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:11px 0;border-top:1px solid rgba(143,199,238,.3)}
+.ecart-carte small{display:block;color:var(--doux);font-size:13px;margin-bottom:1px}
+.ecart-carte .ecrit{color:var(--doux);text-decoration:line-through;text-decoration-color:var(--rouge);text-decoration-thickness:2px;display:block;font-size:15px}
+.ecart-carte .reel{font-weight:600;font-size:16px;line-height:1.25;display:block}
+.pips{display:flex;gap:6px;align-items:center;margin:0 0 12px;font-size:14px;color:var(--doux)}
+.pip{width:26px;height:6px;background:rgba(143,199,238,.35)}.pip.fait{background:var(--vif)}.pip.encours{background:var(--surligne)}
+.pips span:last-child{margin-left:8px}
+.qui{font-size:13px;color:var(--doux);margin:0 0 2px}
+.bulle-agent{font-size:clamp(21px,2.3vw,27px);line-height:1.2;font-weight:600;letter-spacing:-.015em;margin:0 0 12px}
+.preuve-txt{font-size:15px;color:var(--encre);background:var(--surligne);padding:9px 14px;margin:0 0 12px}
+.alerte{color:var(--encre);background:var(--rouge);display:inline-block;font-weight:600;margin:0 0 10px;padding:3px 10px}
+.champ{width:100%;min-height:92px;padding:12px;border:0;background:var(--blanc);color:var(--encre);font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.42;resize:vertical}
+.dit{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-size:20px;margin:0}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.lien{background:none;border:0;padding:0;color:#fff;text-decoration:underline;cursor:pointer;font-size:15px}
+.memoire{margin-top:20px}
+.memoire h2{font-size:16px;margin:0 0 8px;font-weight:600}
+.fiches{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:9px}
+.fiche{background:var(--blanc);color:var(--encre);border-top:4px solid var(--crayon);padding:6px 10px 8px;box-shadow:3px 3px 0 var(--plan-2)}
+.fiche:last-child{animation:fiche .4s ease both}
+@keyframes fiche{from{transform:translateY(12px) rotate(1.5deg);opacity:0}}
+.fiche strong{display:block;font-weight:600;font-size:14px;line-height:1.2;margin-bottom:2px;text-transform:capitalize}
+.fiche span{font-family:"Source Serif 4",Georgia,serif;font-size:13px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vide{color:var(--doux)}
+.dossier{background:var(--blanc);color:var(--encre);padding:8px 30px 20px;max-height:58vh;overflow:auto;font-family:"Source Serif 4",Georgia,serif;margin:0 0 16px;box-shadow:7px 7px 0 var(--plan-2)}
+.dossier h2,.dossier h3,.dossier h4{font-family:Archivo,sans-serif;line-height:1.2;margin:1.1em 0 .3em}
+.dossier p,.r p{margin:.4em 0}.dossier ul,.r ul{margin:.3em 0;padding-left:1.2em}
+.changement{padding:10px 0;border-top:1px solid rgba(143,199,238,.3)}
+.changement strong{display:block;font-weight:600}
+.changement span{color:var(--doux);font-size:14px}
+.echange{margin:16px 0}
+.echange .q{font-weight:600;margin:0}
+.echange .r{font-family:"Source Serif 4",Georgia,serif;font-size:17px;background:var(--blanc);color:var(--encre);padding:8px 18px;margin-top:6px;border-left:6px solid var(--vert);box-shadow:7px 7px 0 var(--plan-2)}
+.erreur{background:#FBE9E6;color:#8A1F10;padding:12px 16px;margin:14px 0}
+.demo{color:var(--doux);font-size:13px;margin-top:28px}
+@media(max-width:900px){.page{grid-template-columns:1fr}.plan{position:static;height:auto;padding:10px}.cadre{min-height:0}.travail{padding:20px 16px 48px}.ecart-carte{grid-template-columns:1fr;gap:6px}.etapes li{font-size:12.5px}}
+@media(prefers-reduced-motion:reduce){.regle-texte,.note{transition:none}.fil li:last-child:before,.feuille.scan:after,.tampon,.fiche{animation:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="plan"><div class="cadre">
+    <div class="tete"><p class="marque">Passation</p><p class="soustitre">Ce qui est écrit, et ce qui se fait vraiment.</p></div>
+    <section class="feuille" id="feuille" aria-label="Procédure officielle">
+      <h2>Atelier Moreau Usinage</h2>
+      <p class="meta" id="version">Procédure commerciale, version 2023</p>
+      <ol class="regles" id="regles"></ol>
+    </section>
+    <div class="cartouche" aria-label="Cartouche du document">
+      <div>État<b id="bilan">Aucun écart trouvé</b></div>
+      <div>Indice<b id="indice">A</b></div>
+      <div>Coût réel<b id="cout">0,0000 $</b></div>
+    </div>
+  </div></aside>
+  <main class="travail">
+    <ol class="etapes" id="etapes"><li>Enquête</li><li>Entretien</li><li>Dossier</li><li>Remplaçante</li></ol>
+    <div id="scene" aria-live="polite"></div>
+    <p class="demo">Démo. Entreprise et données fictives. Agents propulsés par Cominty.</p>
+  </main>
+</div>
+<script>
+const $=(s)=>document.querySelector(s), scene=$('#scene');
+const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n};
+const DEMO={
+ 1:["C'est un vieil accord, voilà.","En 2019, notre plus gros client nous a lâchés. Nordavel a payé six mois d'avance et nous a sauvés. Depuis, je leur laisse 7 %, tant que Madame Lefort reste leur acheteuse. J'ai fait cet accord avec elle."],
+ 2:["Leur activité dépend de la saison. En échange des 60 jours, ils ont bloqué leurs prix pendant deux ans. J'ai conclu cet accord avec leur gérant. Il est à revoir à chaque renouvellement."],
+ 3:["Notre sous-traitant d'anodisation ferme deux semaines à Noël. Il faut prévenir les clients dès octobre, sinon ils sont déçus."],
+ 4:["Aeronyx nous a qualifiés avec la matière Fonderis, car elle arrive avec un certificat de traçabilité complet. Acieral ne le fournit pas. Si on change de fournisseur, on perd la qualification. Il faudrait refaire tout l'audit."],
+ 5:["Karim contrôle seulement les brides inox. Les autres pièces inox, c'est l'opérateur.","En 2022, un lot d'inox 316 fissuré nous est revenu : 40 000 euros de perte. Karim est le seul formé au contrôle par ressuage. S'il est absent, on n'expédie pas, on envoie le lot au laboratoire."]
+};
+const echappe=(t)=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const gras=(t)=>t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+function rendu(md){let h='',liste=false;
+  for(const brut of echappe(md).split('\n')){const l=brut.trim();
+    if(/^[-*] /.test(l)){if(!liste){h+='<ul>';liste=true}h+=`<li>${gras(l.slice(2))}</li>`;continue}
+    if(liste){h+='</ul>';liste=false}
+    if(!l||/^-{3,}$/.test(l))continue;
+    const t=l.match(/^(#{1,4}) (.*)/);
+    h+=t?`<h${Math.min(t[1].length+1,4)}>${gras(t[2])}</h${Math.min(t[1].length+1,4)}>`:`<p>${gras(l)}</p>`}
+  return h+(liste?'</ul>':'')}
+const brut=(md)=>md.replace(/^#+ .*$/m,'').replace(/[*#]/g,'').replace(/\s+/g,' ').trim();
+const QUESTIONS_DEMO=[
+ "Nordavel demande une remise de 7 %, alors que la procédure dit 5 % maximum. Je dois faire quoi, et pourquoi ?",
+ "Acieral est moins cher. Je peux lui passer la prochaine commande d'Aeronyx ?",
+ "Karim est absent cette semaine. Je peux expédier un lot d'inox 316 quand même ?",
+ "Un nouveau client veut payer à 60 jours, comme Breizhydra. Je peux accepter ?",
+ "On est en octobre. Que dois-je dire aux clients pour les délais de fin d'année ?"
+];
+let REGLES=[];
+const etat={sid:null,pratiques:[],i:0,essai:0,question:'',memoire:[],occupe:false};
+
+async function appel(url,corps,surEvenement){
+  const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','X-Session':etat.sid},body:corps?JSON.stringify(corps):undefined});
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.detail||'Le serveur a refusé la demande.')}
+  const lecteur=r.body.getReader(),dec=new TextDecoder();let tampon='';
+  for(;;){
+    const {value,done}=await lecteur.read();if(done)break;
+    tampon+=dec.decode(value,{stream:true});
+    const lignes=tampon.split('\n');tampon=lignes.pop();
+    for(const l of lignes){if(!l.trim())continue;const ev=JSON.parse(l);
+      if(ev.t==='cout')$('#cout').textContent=`${ev.total.toFixed(4).replace('.',',')} $`;
+      else if(ev.t==='erreur')throw new Error(ev.texte);
+      else surEvenement(ev)}
+  }
+}
+function etape(n){[...$('#etapes').children].forEach((li,i)=>{li.className=i<n?'finie':i===n?'active':''})}
+function fil(){const f=el('ul','fil');return{n:f,ajoute:(t)=>{if(f.lastChild?.textContent!==t)f.append(el('li',null,t))}}}
+function erreur(m,relancer){scene.append(el('p','erreur',m));if(relancer){const b=el('button','btn secondaire','Réessayer');b.onclick=relancer;scene.append(b)}}
+
+function accueil(){
+  etape(0);scene.replaceChildren();
+  scene.append(el('h1',null,'Michel part dans trois semaines. Trente ans de métier partent avec lui.'));
+  scene.append(el('p','intro',"L'agent lit ses procédures, ses devis, ses achats, ses expéditions et ses e-mails. Il cherche ce que Michel fait vraiment, puis il l'interroge sur ce qui n'est écrit nulle part."));
+  const b=el('button','btn','Lancer l\'enquête');b.onclick=enquete;scene.append(b);
+}
+async function enquete(){
+  scene.replaceChildren(el('h1',null,'L\'agent compare les règles et la réalité'));
+  const f=fil();scene.append(f.n);
+  const fe=$('#feuille');fe.style.setProperty('--h',fe.clientHeight+'px');fe.classList.add('scan');
+  try{await appel('/api/enquete',null,(ev)=>{
+    if(ev.t==='etape')f.ajoute(ev.texte);
+    if(ev.t==='enquete'){fe.classList.remove('scan');etat.pratiques=ev.pratiques;etat.i=0;barrer();resultats()}
+  })}catch(e){fe.classList.remove('scan');erreur(e.message,enquete)}
+}
+function barrer(){
+  const lis=[...$('#regles').children];let n=0;
+  etat.pratiques.forEach((p,k)=>{const li=lis[(p.regle||0)-1];if(!li)return;n++;
+    setTimeout(()=>{li.classList.add('barree');li.querySelector('.note').textContent=p.titre},k*700)});
+  $('#bilan').textContent=`${n} règles contredites`;
+}
+function resultats(){
+  etape(0);scene.replaceChildren(el('h1',null,`${etat.pratiques.length} pratiques ne sont écrites nulle part`));
+  scene.append(el('p','intro','Les faits viennent des documents. Seul Michel connaît les raisons, alors l\'agent va lui poser la question.'));
+  for(const p of etat.pratiques){const c=el('article','ecart-carte'),e=el('div'),r=el('div');
+    e.append(el('small',null,'Écrit'),el('span','ecrit',REGLES[(p.regle||0)-1]||'Aucune règle écrite'));
+    r.append(el('small',null,'Réel'),el('span','reel',p.titre));c.append(e,r);scene.append(c)}
+  const b=el('button','btn','Commencer l\'entretien avec Michel');b.onclick=()=>{etat.essai=0;poser()};scene.append(b);
+}
+function exemple(p){return DEMO[p.regle]||null}
+function poser(texte,contredit){
+  etape(1);const p=etat.pratiques[etat.i];etat.question=texte||p.question;
+  const pips=el('div','pips');etat.pratiques.forEach((_,k)=>pips.append(el('i','pip'+(k<etat.i?' fait':k===etat.i?' encours':''))));pips.append(el('span',null,texte?`Relance sur la pratique ${etat.i+1} sur ${etat.pratiques.length}`:`Question ${etat.i+1} sur ${etat.pratiques.length}`));scene.replaceChildren(pips);
+  if(contredit)scene.append(el('p','alerte','Cette réponse ne correspond pas aux données.'));
+  scene.append(el('p','qui',"L'agent à Michel"),el('p','bulle-agent',etat.question));
+  if(!texte)scene.append(el('p','preuve-txt',p.preuve));
+  const t=el('textarea','champ');t.placeholder='Réponse de Michel';t.setAttribute('aria-label','Réponse de Michel');scene.append(t);
+  const a=el('div','actions'),b=el('button','btn','Envoyer la réponse');
+  b.onclick=()=>{if(t.value.trim())repondre(p,t.value.trim())};a.append(b);
+  const ex=exemple(p);if(ex){const l=el('button','lien','Utiliser la réponse de démo');l.onclick=()=>{t.value=ex[Math.min(etat.essai,ex.length-1)];t.focus()};a.append(l)}
+  scene.append(a);afficherMemoire();t.focus();
+}
+async function repondre(p,texte){
+  scene.replaceChildren(el('p','bulle-agent',etat.question));
+  scene.append(el('p','dit',`« ${texte} »`));
+  const f=fil();scene.append(f.n);
+  try{await appel('/api/reponse',{id:p.id,texte},(ev)=>{
+    if(ev.t==='etape')f.ajoute(ev.texte);
+    if(ev.t==='reponse'){etat.memoire=ev.memoire;
+      if(ev.relance){etat.essai++;poser(ev.relance,ev.contradiction)}
+      else{etat.i++;etat.essai=0;etat.i<etat.pratiques.length?poser():finEntretien()}}
+  })}catch(e){erreur(e.message,()=>poser(etat.question===p.question?undefined:etat.question))}
+}
+function titreSavoir(chemin){return chemin.replace(/^.*\//,'').replace(/\.md$/,'').replace(/-/g,' ')}
+function afficherMemoire(){
+  const m=el('section','memoire');m.append(el('h2',null,`Mémoire de l'entreprise : ${etat.memoire.length} ${etat.memoire.length>1?'savoirs gardés':'savoir gardé'}`));
+  if(!etat.memoire.length)m.append(el('p','vide','Rien pour l\'instant. Chaque réponse claire sera gardée ici.'));
+  const g=el('div','fiches');for(const f of etat.memoire){const d=el('div','fiche');d.append(el('strong',null,titreSavoir(f.chemin)),el('span',null,brut(f.contenu)));g.append(d)}m.append(g);
+  scene.append(m);
+}
+function finEntretien(){
+  etape(2);scene.replaceChildren(el('h1',null,`Le savoir de Michel est gardé`));
+  scene.append(el('p','intro','L\'agent peut maintenant écrire le dossier pour Camille, sa remplaçante.'));
+  const b=el('button','btn','Écrire le dossier de passation');b.onclick=dossier;scene.append(b);afficherMemoire();
+}
+async function dossier(){
+  scene.replaceChildren(el('h1',null,'L\'agent écrit le dossier'));const f=fil();scene.append(f.n);
+  try{await appel('/api/dossier',null,(ev)=>{
+    if(ev.t==='etape')f.ajoute(ev.texte);
+    if(ev.t==='dossier'){
+      const doc=el('div','dossier');doc.innerHTML=rendu(ev.markdown);scene.replaceChildren(el('h1',null,'Dossier de passation'),doc);
+      const a=el('div','actions'),pdf=el('a','btn secondaire','Télécharger le PDF');pdf.href=`/api/dossier.pdf?s=${etat.sid}`;pdf.style.textDecoration='none';
+      const b=el('button','btn','Mettre à jour la procédure');b.onclick=procedure;a.append(b,pdf);scene.append(a)}
+  })}catch(e){erreur(e.message,dossier)}
+}
+async function procedure(){
+  scene.replaceChildren(el('h1',null,'L\'agent réécrit la procédure'));const f=fil();scene.append(f.n);
+  try{await appel('/api/procedure',null,(ev)=>{
+    if(ev.t==='etape')f.ajoute(ev.texte);
+    if(ev.t==='procedure')revue(ev.regles)
+  })}catch(e){erreur(e.message,procedure)}
+}
+function revue(regles){
+  const lis=[...$('#regles').children];
+  regles.forEach((r,k)=>{const li=lis[r.numero-1];if(!li)return;setTimeout(()=>{li.classList.remove('barree');li.classList.add('nouvelle');li.querySelector('.regle-texte').textContent=r.texte},k*500)});
+  $('#version').textContent='Nouvelle version proposée par l\'agent';$('#bilan').textContent='À valider par une personne';
+  scene.replaceChildren(el('h1',null,'La procédure dit enfin la vérité'));
+  scene.append(el('p','intro','L\'agent propose. Une personne décide. Rien ne change sans validation.'));
+  for(const r of regles){const d=el('div','changement');d.append(el('strong',null,`Règle ${r.numero} : ${r.changement}`),el('span',null,`Source : ${r.source}`));scene.append(d)}
+  const a=el('div','actions'),b=el('button','btn','Valider la nouvelle procédure');
+  b.onclick=async()=>{b.disabled=true;
+    try{const r=await fetch('/api/procedure/valider',{method:'POST',headers:{'X-Session':etat.sid}});if(!r.ok)throw new Error('La validation a échoué. Réessaie.');
+      $('#version').textContent='Nouvelle version validée';$('#bilan').textContent='Validée, gardée en mémoire';$('#indice').textContent='B';$('#feuille').append(el('div','tampon','Validé'));setTimeout(camille,1100)}
+    catch(e){b.disabled=false;erreur(e.message)}};
+  a.append(b);scene.append(a);
+}
+function camille(){
+  etape(3);scene.replaceChildren(el('h1',null,'Six mois plus tard, Camille a une question'));
+  scene.append(el('p','intro','Michel n\'est plus là. C\'est une nouvelle conversation, sans les documents : l\'agent répond depuis la mémoire de l\'entreprise.'));
+  const zone=el('div');scene.append(zone);
+  const t=el('textarea','champ');t.setAttribute('aria-label','Question de Camille');t.placeholder='Pose une question sur le travail de Michel';scene.append(t);
+  const a=el('div','actions'),b=el('button','btn','Poser la question'),l=el('button','lien');
+  let rang=0;l.textContent=`Question de démo 1 sur ${QUESTIONS_DEMO.length}`;
+  l.onclick=()=>{t.value=QUESTIONS_DEMO[rang];rang++;t.focus();
+    if(rang<QUESTIONS_DEMO.length)l.textContent=`Question de démo ${rang+1} sur ${QUESTIONS_DEMO.length}`;else l.remove()};
+  b.onclick=async()=>{const q=t.value.trim();if(!q||b.disabled)return;b.disabled=true;t.value='';
+    const e=el('div','echange');e.append(el('p','q',q));const f=fil();e.append(f.n);zone.append(e);
+    try{await appel('/api/remplacant',{question:q},(ev)=>{
+      if(ev.t==='etape')f.ajoute(ev.texte);
+      if(ev.t==='remplacant'){f.n.remove();const r=el('div','r');r.innerHTML=rendu(ev.texte);e.append(r)}
+    })}catch(x){e.append(el('p','erreur',x.message))}
+    b.disabled=false};
+  a.append(b,l);scene.append(a);
+}
+(async()=>{
+  const reg=await (await fetch('/api/procedures')).json();
+  REGLES=reg.regles;for(const r of reg.regles){const li=el('li','regle');li.append(el('span','regle-texte',r),el('span','note'));$('#regles').append(li)}
+  etat.sid=(await (await fetch('/api/session',{method:'POST'})).json()).sid;
+  accueil();
+})().catch(e=>erreur('Le serveur ne répond pas. Vérifie qu\'il est lancé.'));
+</script>
+</body>
+</html>
